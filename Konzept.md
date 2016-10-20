@@ -20,56 +20,45 @@ Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem 
 
 Das Erfassen eines Rezeptes läuft in mehreren Schritten ab.
 
+### Anforderungen an die Daten
 
-
-Die genauen Bestandteile eines Rezeptes sind im folgenden Abschnitt genau beschrieben.
-
-
-
-
-
-
-
-Zubereitung 
-Im Grunde wird aber nur die Eingabe von einem oder mehreren Textabschnitten benötigt. Die können dann als 
-
-### Rezepte
+#### Rezepte
 Ein Rezept besteht in Omas Kochbuch aus den folgenden Bausteinen:
 
-#### Name
+##### Name
 Das Rezept muss einen Namen haben, welcher beliebig lang sein kann. Dieser wird in der Übersichtsliste angezeigt und dient zum direkten Erkennen des Rezepts. Es können mehrere Rezepte denselben Namen haben, diese werden dann durch andere Merkmale unterschieden (Zutaten, Zubereitung, etc.).
 
-#### Zubereitungsdauer
+##### Zubereitungsdauer
 Die Gesamtdauer der Zubereitung in Minuten und zusätzlich, falls angegeben, die Dauer der einzelnen Zubereitungsschritte.
 
-#### Personenanzahl
+##### Personenanzahl
 Die Anzahl der Personen für die das fertige Gericht reicht, wenn man die angegebenen Zutatenmengen verwendet.
 
-#### Fotos
+##### Fotos
 Ein oder mehrere Bilder des fertig gekochten Gerichts. Die Angabe ist optional.
 
-#### Liste der Zutaten
+##### Liste der Zutaten
 Eine Liste der benötigten Zutaten mit Mengenangabe. Zusätzlich lassen sich Zutaten als *Geheimzutat* kennzeichnen, diese werden dann besonders hervorgehoben.
 
-#### Zubereitung / Anweisungsschritte
+##### Zubereitung / Anweisungsschritte
 Die Zubereitung eines Gerichts kann auf verschiedene Arten angegeben werden, welche sich von Rezept zu Rezept unterscheiden. Manche Rezepte benötigen besondere Vorbereitung, andere sind so einfach, dass keine besondere Aufteilung auf mehrere Arbeitsschritte notwendig ist. Zu jedem Schritt kann optional auch eine Zeitdauer in Minuten angegeben werden. Außerdem kann ein Zubereitungsschritt auch als Geheimtipp gekennzeichnet werden, um ihn im Rezept besonders hervorzuheben.
 
-#### Benötigte Ausstattung
+##### Benötigte Ausstattung
 Eine optionale Liste an benötigter Hardware wie Töpfe, Stampfer, etc. So kann man bereits im Vorfeld sehen, welche Küchenausstattung eventuell noch fehlt.
 
-#### Besondere Kennzeichnungen
+##### Besondere Kennzeichnungen
 Ein Rezept kann besondere Kennzeichnungen erhalten wie zum Beispiel *kalt* / *warm* oder *vegetarisch* / *vegan*. Diese werden auch in der Übersichtsliste angezeigt und bieten so einen schnellen Indikator bei der Auswahl.
 
-#### Lieblingsrezept
+##### Lieblingsrezept
 Ein Rezept lässt sich als Lieblingsrezept kennzeichnen, dies entspricht einer Favoriten-Funktion um die gekennzeichneten Rezepte gesondert darzustellen und schneller wiederzufinden.
 
-### Zutaten
-Die App enthält eine Standard-Datenbank mit vielen gebräuchlichen Lebensmitteln. Diese werden bei der Eingabe der Zutatenliste eines Rezepts benötigt und erleichtern somit das Anlegen eines neuen Rezepts.
+#### Zutaten
+Die App enthält eine Standard-Datenbank mit vielen gebräuchlichen Lebensmitteln. Diese werden bei der Eingabe der Zutatenliste eines Rezepts benötigt und erleichtern somit das Anlegen eines neuen Rezepts. Die Lebensmittel werden während der Entwicklung anhand einer bereits existierenden Liste in eine Datenbank gespeichert und mit der fertigen App ausgeliefert.
 
-#### Autovervollständigung und Zutatenvorschläge
+##### Autovervollständigung und Zutatenvorschläge
 Die Angabe der Zutaten wird durch eine Autovervollständigung der Eingabe unterstützt. Dafür ist in der App eine umfangreiche Liste mit Lebensmitteln hinterlegt, welche gefiltert angezeigt werden, sobald man eine Zutat zu einem Rezept hinzufügen möchte. Wenn der Benutzer beispielsweise *Tomaten* als Zutat hinzufügen möchte und `To` eingibt, so werden ihm bereits sowohl `Tofu`, als auch `Tomaten` als mögliche Eingabe vorgeschlagen.
 
-#### Intelligente Mengeneinheiten
+##### Intelligente Mengeneinheiten
 Die Zutaten sind an Mengeneinheiten gekoppelt, sodass die App bereits weiß, dass Milch meist in Millilitern und Hackfleisch in Gramm angegeben wird. Für größere Mengen, passen sich die Einheiten automatisch an, sodass aus `1500ml Milch` dann `1,5l Milch` werden. Die Zuordnung der Zutaten merkt die App sich allerdings erst nach und nach, da nicht für alle Lebensmittel eine Standardzuordnung zu Einheiten bekannt ist. Diese mit müsste vom Entwickler manuell in der Datenbank gespeichert und mit ausgeliefert werden, was einen zu großen Aufwand darstellt.
 
 ## Gestaltung

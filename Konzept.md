@@ -15,11 +15,6 @@ Was das genau bedeutet lässt sich im Endeffekt auf zwei Kategorien aufteilen:
 - Rezepte und deren Bestandteile
 - Optimierung der Benutzeroberfläche der App
 
-### Anforderungen an die Benutzeroberfläche
-Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem Bildschirm eventuell auch als Kacheln. In der Liste lassen sich Rezepte löschen (mit Sicherheitsnachfrage) und zum Bearbeiten öffnen. Durch Antippen eines Rezepts wird dieses in einer Detailansicht dargestellt.
-
-Das Erfassen eines Rezeptes läuft in mehreren Schritten ab.
-
 ### Anforderungen an die Daten
 
 #### Rezepte
@@ -60,5 +55,25 @@ Die Angabe der Zutaten wird durch eine Autovervollständigung der Eingabe unters
 
 ##### Intelligente Mengeneinheiten
 Die Zutaten sind an Mengeneinheiten gekoppelt, sodass die App bereits weiß, dass Milch meist in Millilitern und Hackfleisch in Gramm angegeben wird. Für größere Mengen, passen sich die Einheiten automatisch an, sodass aus `1500ml Milch` dann `1,5l Milch` werden. Die Zuordnung der Zutaten merkt die App sich allerdings erst nach und nach, da nicht für alle Lebensmittel eine Standardzuordnung zu Einheiten bekannt ist. Diese mit müsste vom Entwickler manuell in der Datenbank gespeichert und mit ausgeliefert werden, was einen zu großen Aufwand darstellt.
+
+### Anforderungen an die Benutzeroberfläche
+Die App soll aus möglichst wenig unterschiedlichen Ansichten bestehen um die Komplexität so gering wie möglich zu halten. Prinzipiell gibt es 3 Hauptansichten:
+
+- Liste der Rezepte
+- Rezept-Detailansicht
+- Rezept-Bearbeitungsansicht
+
+Eventuell sollte die Zutatenliste eines Rezepts ebenfalls in einer eigenen Ansicht dargestellt werden, falls ein Rezept zu viele Zutaten enthält.
+
+#### Liste der Rezepte
+Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem Bildschirm eventuell auch als Kacheln. In der Liste lassen sich Rezepte löschen (mit Sicherheitsnachfrage) und zum Bearbeiten öffnen. Außer dem Namen des Rezepts und eventueller Besonderheiten (kalt / warm, vegetarisch, siehe Kapitel *Anforderungen an die Daten*) soll in der Liste der benötigte Zeitaufwand und die Standard-Personenanzahl stehen.
+
+Durch Antippen eines Rezepts wird dieses in einer Detailansicht dargestellt.
+
+#### Rezept-Detailansicht
+
+
+#### Rezept-Bearbeitungsansicht
+Das Erfassen eines Rezeptes läuft in mehreren Schritten ab.
 
 ## Gestaltung

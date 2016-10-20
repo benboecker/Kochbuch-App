@@ -16,9 +16,10 @@ Was das genau bedeutet lässt sich im Endeffekt auf zwei Kategorien aufteilen:
 - Optimierung der Benutzeroberfläche der App
 
 ### Anforderungen an die Daten
+Die App soll Rezepte speichern und darstellen, dazu muss zunächst definiert werden, was ein Rezept im Kontext dieser App beinhaltet.
 
-#### Rezepte
-Ein Rezept besteht in Omas Kochbuch aus den folgenden Bausteinen:
+#### Rezept
+Ein Rezept besteht in *Omas Kochbuch* aus den folgenden Bausteinen:
 
 ##### Name
 Das Rezept muss einen Namen haben, welcher beliebig lang sein kann. Dieser wird in der Übersichtsliste angezeigt und dient zum direkten Erkennen des Rezepts. Es können mehrere Rezepte denselben Namen haben, diese werden dann durch andere Merkmale unterschieden (Zutaten, Zubereitung, etc.).
@@ -66,14 +67,28 @@ Die App soll aus möglichst wenig unterschiedlichen Ansichten bestehen um die Ko
 Eventuell sollte die Zutatenliste eines Rezepts ebenfalls in einer eigenen Ansicht dargestellt werden, falls ein Rezept zu viele Zutaten enthält.
 
 #### Liste der Rezepte
-Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem Bildschirm eventuell auch als Kacheln. In der Liste lassen sich Rezepte löschen (mit Sicherheitsnachfrage) und zum Bearbeiten öffnen. Außer dem Namen des Rezepts und eventueller Besonderheiten (kalt / warm, vegetarisch, siehe Kapitel *Anforderungen an die Daten*) soll in der Liste der benötigte Zeitaufwand und die Standard-Personenanzahl stehen.
+Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem Bildschirm eventuell auch als Kacheln. In der Liste lassen sich Rezepte löschen (mit Sicherheitsnachfrage) und zum Bearbeiten öffnen. Außer dem Namen des Rezepts und eventueller Besonderheiten (*warmes Gericht*, *vegetarisch*, siehe Kapitel *Anforderungen an die Daten*) soll in der Liste der benötigte Zeitaufwand und die Standard-Personenanzahl stehen. Wenn für ein Rezept ein Foto hinterlegt ist, so wird dieses auch in der Liste angezeigt.
 
 Durch Antippen eines Rezepts wird dieses in einer Detailansicht dargestellt.
 
 #### Rezept-Detailansicht
+Die Detailansicht eines Rezepts zeigt die zugehörigen Informationen in einer bestimmten Reihenfolge an:
 
+1. Foto
+2. Name des Rezepts
+3. Personenzahl / Dauer
+4. Besonderheiten
+5. Zutatenliste / Benötigte Ausstattung
+6. Zubereitungsschritte
+
+Ganz oben ist – falls vorhanden – ein Foto des zubereiteten Gerichts abgebildet. Darunter erscheinen die generellen Informationen zu Name und Art des Gerichts, darunter dann die Zutaten und Zubereitung. Die Personenanzahl lässt sich anpassen wodurch sich die benötigten Zutatenmengen automatisch ändern. Ebenfalls ist in dieser Ansicht ein Button zu finden, welcher den Export einer Einkaufsliste vorbereitet. Diese lässt sich dann als Notiz speichern oder an Freunde versenden.
+
+Die dargestellten Informationen sind nicht editierbar, ein zusätzlicher Button in der Navigationsleiste versetzt das Rezept in den Bearbeitungsmodus.
 
 #### Rezept-Bearbeitungsansicht
-Das Erfassen eines Rezeptes läuft in mehreren Schritten ab.
+In der Besrbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Popup festlegen, genau wie die Anzahl der Personen.
+
+Die Zutatenliste sowie benötigte Ausstattung lässt sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine Zutat wird ebenfalls über ein Popup hinzugefügt, dort hat man ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge einzugeben.
+
 
 ## Gestaltung

@@ -86,7 +86,7 @@ Ganz oben ist – falls vorhanden – ein Foto des zubereiteten Gerichts abgebil
 Die dargestellten Informationen sind nicht editierbar, ein zusätzlicher Button in der Navigationsleiste versetzt das Rezept in den Bearbeitungsmodus.
 
 #### Rezept-Bearbeitungsansicht
-In der Besrbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Popup festlegen, genau wie die Anzahl der Personen.
+In der Bearbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Popup festlegen, genau wie die Anzahl der Personen.
 
 Die Zutatenliste sowie benötigte Ausstattung lässt sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine Zutat wird ebenfalls über ein Popup hinzugefügt, dort hat man ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge einzugeben.
 

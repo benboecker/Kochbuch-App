@@ -1,19 +1,17 @@
-# Omas Kochbuch
+# Kochbuch 2.0
+Mit der App *Kochbuch 2.0* können Nutzer ihre persönlichen Lieblingsrezepte speichern und immer wieder nachkochen. Die App arbeitet offline und ist nicht zum direkten Austausch von Rezepten gedacht, sondern vielmehr, um für sich persönlich Kochwissen festzuhalten, welches nicht in Büchern oder Online-Foren steht. So sollen sich auf einfache Art und Weise Rezepte abspeichern und bei Bedarf ergänzen lassen. Als besonderes Feature, kann man sich die Zutaten direkt als Einkaufsliste speichern oder als Textnachricht an eine andere Person verschicken.
 
-Mit der App *Omas Kochbuch* können Nutzer ihre persönlichen Lieblingsrezepte speichern und immer wieder nachkochen. Die App arbeitet offline und ist nicht zum Austausch von Rezepten gedacht, sondern vielmehr, um Kochwissen festzuhalten, welches nicht in Kochbüchern oder Online-Foren steht. So sollen sich auf einfache Art und Weise Rezepte abspeichern und bei Bedarf ergänzen lassen. Als besonderes Feature, kann man sich die Zutaten direkt als Einkaufsliste speichern oder an eine andere Person verschicken.
-
-Im diesem Konzept werden die Anforderungen an die App beschrieben. Also zum einen, welche Informationen ein Rezept ausmachen und in der App dargestellt werden können und zum anderen, wie der Benutzer mit der App interagieren kann und wie die Benutzeroberfläche gestaltet werden sollte.
+Im diesem Konzept werden die Anforderungen an die App beschrieben. Zum einen, welche Informationen ein Rezept ausmachen und in der App dargestellt werden können und zum anderen, wie der Benutzer mit der App interagieren kann und wie die Benutzeroberfläche gestaltet werden sollte.
 
 ## Anforderungen
 
-Die grundsätzliche Anforderung an die App lässt sich in einer simplen Aussage zusammenfassen:
+Die grundsätzliche Anforderung an die App lässt sich in einer simplen Aussage tzusammenfassen: *Erfassen und Anzeigen von Rezepten mit benötigten Zutaten und Anweisungsschritten auf möglichst einfache und benutzerfreundliche Art.*
 
-> Erfassen und Anzeigen von Rezepten mit benötigten Zutaten und Anweisungsschritten auf möglichst einfache und benutzerfreundliche Art.
+### Rezepte und deren Bestandteile
+Rezepte sind unterschiedlich kompliziert, es gibt einfache Rezepte mit wenigen Zutaten und Zubereitungsschritten und wesentlich aufwändigere. Trotzdem muss es möglich sein jedes Rezept konzeptuell zu beschreiben, welche Daten dazu benötigt werden, ist im Abschnitt *Anforderungen an die Daten* genauer beschrieben.
 
-Was das genau bedeutet lässt sich im Endeffekt auf zwei Kategorien aufteilen:
-
-- Rezepte und deren Bestandteile
-- Optimierung der Benutzeroberfläche der App
+### Gestaltung der Benutzeroberfläche der App
+Die Benutzeroberfläche soll so gestaltet werden, dass sowohl simple als auch aufwändige Rezepte so einfach wie möglich eingegeben werden können. Außerdem sollte die Führung des Benutzers durch die App nicht unnötig kompliziert sein, sprich möglichst wenige Ansichten und eindeutige Beschriftungen, Icons und Aktionen.
 
 ### Anforderungen an die Daten
 Die App soll Rezepte speichern und darstellen, dazu muss zunächst definiert werden, was ein Rezept im Kontext dieser App beinhaltet.
@@ -58,7 +56,7 @@ Die Angabe der Zutaten wird durch eine Autovervollständigung der Eingabe unters
 Die Zutaten sind an Mengeneinheiten gekoppelt, sodass die App bereits weiß, dass Milch meist in Millilitern und Hackfleisch in Gramm angegeben wird. Für größere Mengen, passen sich die Einheiten automatisch an, sodass aus `1500ml Milch` dann `1,5l Milch` werden. Die Zuordnung der Zutaten merkt die App sich allerdings erst nach und nach, da nicht für alle Lebensmittel eine Standardzuordnung zu Einheiten bekannt ist. Diese mit müsste vom Entwickler manuell in der Datenbank gespeichert und mit ausgeliefert werden, was einen zu großen Aufwand darstellt.
 
 ### Anforderungen an die Benutzeroberfläche
-Die App soll aus möglichst wenig unterschiedlichen Ansichten bestehen um die Komplexität so gering wie möglich zu halten. Prinzipiell gibt es 3 Hauptansichten:
+Die Gestaltung der Benutzeroberfläche soll so weit es geht mit Standard-Controls des Android-UI-Frameworks realisiert werden. Außerdem wird die App aus möglichst wenig unterschiedlichen Ansichten bestehen um die Komplexität so gering wie möglich zu halten. Prinzipiell gibt es 3 Hauptansichten:
 
 - Liste der Rezepte
 - Rezept-Detailansicht
@@ -86,9 +84,26 @@ Ganz oben ist – falls vorhanden – ein Foto des zubereiteten Gerichts abgebil
 Die dargestellten Informationen sind nicht editierbar, ein zusätzlicher Button in der Navigationsleiste versetzt das Rezept in den Bearbeitungsmodus.
 
 #### Rezept-Bearbeitungsansicht
-In der Besrbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Popup festlegen, genau wie die Anzahl der Personen.
+In der Bearbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Pop-up festlegen, genau wie die Anzahl der Personen.
 
-Die Zutatenliste sowie benötigte Ausstattung lässt sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine Zutat wird ebenfalls über ein Popup hinzugefügt, dort hat man ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge einzugeben.
+Wählt man die Zutatenliste aus, so wird man auf eine besondere Listenansicht aller Zutaten geleitet, siehe *Zutatenliste* weiter unten.
 
+Auch die einzelnen Zubereitungsschritte sind in Listenform angegeben, pro Zubereitungsschritt eine Listenzeile. Am Ende der Liste befindet sich ein Button mit dem sich ein neuer Eintrag zur Liste hinzufügen lässt. Es öffnet sich ein Popup mit einem Textfeld über das man den neuen Eintrag hinzufügen kann.
+
+#### Zutatenliste
+Die Zutatenliste wird zur besseren Übersicht in einer gesonderten Ansicht dargestellt.
+
+Die einzelnen Zutaten sowie die benötigte Ausstattung lässt sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine neue Zutat wird über ein Pop-up hinzugefügt, dort befindet sich ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge einzugeben.
 
 ## Gestaltung
+
+In diesem Kapitel werden einige Mockups für die Benutzeroberfläche präsentiert, sowie einige grundsätzliche Gedanken zur Gestaltung.
+
+### Allgemeine Gedanken zur Gestaltung
+
+- Systemfont (Roboto)
+- Farben auf 2 Textfarben und eine Akzentfarbe beschränken
+- Optionale Fotos zur Aufhübschung
+
+### Rezepteliste
+

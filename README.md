@@ -107,18 +107,18 @@ In diesem Kapitel werden einige Mockups für die Benutzeroberfläche präsentier
 
 ### Rezepteliste
 
-![](/img/rezepte_liste.jpg "Rezepte-Liste")
+![Rezepte-Liste](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/rezepte_liste.jpg)
 
 ### Rezeptdetail 1
 
-![](/img/rezepte_detail_1.jpg "Rezepte-Detail-1")
+![Rezepte-Detail-1](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/rezepte_detail_1.jpg)
 
 ### Rezeptdetail 2
 
-![](/img/rezepte_detail_2.jpg "Rezepte-Detail-2")
+![Rezepte-Detail-2](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/rezepte_detail_2.jpg)
 
 ### Zutatenliste
 
-![](/img/zutaten_liste.jpg "Zutaten-Liste")
+![Zutaten-Liste](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/zutaten_liste.jpg)
 
 

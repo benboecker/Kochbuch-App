@@ -1,4 +1,7 @@
 # Kochbuch 2.0
+
+*Diese App entsteht im Rahmen des Kurses "Native App-Programmierung" im Wintersemester 2016 / 2017 an der FH Bielefeld.*
+
 Mit der App *Kochbuch 2.0* können Nutzer ihre persönlichen Lieblingsrezepte speichern und immer wieder nachkochen. Die App arbeitet offline und ist nicht zum direkten Austausch von Rezepten gedacht, sondern vielmehr, um für sich persönlich Kochwissen festzuhalten, welches nicht in Büchern oder Online-Foren steht. So sollen sich auf einfache Art und Weise Rezepte abspeichern und bei Bedarf ergänzen lassen. Als besonderes Feature, kann man sich die Zutaten direkt als Einkaufsliste speichern oder als Textnachricht an eine andere Person verschicken.
 
 Im diesem Konzept werden die Anforderungen an die App beschrieben. Zum einen, welche Informationen ein Rezept ausmachen und in der App dargestellt werden können und zum anderen, wie der Benutzer mit der App interagieren kann und wie die Benutzeroberfläche gestaltet werden sollte.

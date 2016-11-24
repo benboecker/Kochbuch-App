@@ -122,3 +122,6 @@ In diesem Kapitel werden einige Mockups für die Benutzeroberfläche präsentier
 ![Zutaten-Liste](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/zutaten_liste.jpg)
 
 
+## Datenbankmodell
+
+![Datenbankmodell](https://github.com/benboecker/Kochbuch-App/blob/master/concept-images/datenbankmodell.png)

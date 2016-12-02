@@ -73,14 +73,15 @@ Die Rezepte sollen in einer Liste angezeigt werden, auf Geräten mit größerem 
 Durch Antippen eines Rezepts wird dieses in einer Detailansicht dargestellt.
 
 #### Rezept-Detailansicht
-Die Detailansicht eines Rezepts zeigt die zugehörigen Informationen in einer bestimmten Reihenfolge an:
+Die Detailansicht eines Rezepts zeigt die zugehörigen Informationen in einer Tab-Ansicht dar:
 
-1. Foto
-2. Name des Rezepts
-3. Personenzahl / Dauer
-4. Besonderheiten
-5. Zutatenliste / Benötigte Ausstattung
-6. Zubereitungsschritte
+* Tab 1: Rezept
+	* Foto
+	* Name des Rezepts
+	* Personenzahl / Dauer
+	* Besonderheiten
+* Tab 2: Zutaten
+* Tab 3: Zubereitung
 
 Ganz oben ist – falls vorhanden – ein Foto des zubereiteten Gerichts abgebildet. Darunter erscheinen die generellen Informationen zu Name und Art des Gerichts, darunter dann die Zutaten und Zubereitung. Die Personenanzahl lässt sich anpassen wodurch sich die benötigten Zutatenmengen automatisch ändern. Ebenfalls ist in dieser Ansicht ein Button zu finden, welcher den Export einer Einkaufsliste vorbereitet. Diese lässt sich dann als Notiz speichern oder an Freunde versenden.
 

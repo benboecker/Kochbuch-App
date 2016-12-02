@@ -46,11 +46,8 @@ public class RecipeDataSource {
 		return newRecipe;
 	}
 
-	public void deleteRecipe(Recipe recipe) {
-		long id = recipe.getId();
-		if (this.database.delete(TableRecipe.TABLE_NAME, TableRecipe.COLUMN_ID + " = " + id, null) != 1) {
-			System.out.println("Comment deleted with id: " + id);
-		}
+	public boolean deleteRecipe(Recipe recipe) {
+		return this.database.delete(TableRecipe.TABLE_NAME, TableRecipe.COLUMN_ID + " = " + recipe.getId(), null) == 1;
 	}
 
 	public List<Recipe> getAllRecipes() {
@@ -67,6 +64,29 @@ public class RecipeDataSource {
 
 		cursor.close();
 		return recipes;
+	}
+
+	public Recipe getRecipe(long id) {
+		Recipe recipe = null;
+		String selection = "_id = ?";
+		String[] args = { "" + id };
+		Cursor cursor = this.database.query(TableRecipe.TABLE_NAME, TableRecipe.allColumns, selection, args, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			recipe = this.cursorToRecipe(cursor);
+			cursor.moveToNext();
+		}
+
+		cursor.close();
+		return recipe;
+	}
+
+	public boolean updateRecipe(Recipe recipe) {
+		ContentValues values = new ContentValues();
+		values.put(TableRecipe.COLUMN_NAME, recipe.getName());
+
+		return database.update(TableRecipe.TABLE_NAME, values, TableRecipe.COLUMN_ID + " = " + recipe.getId(), null) == 1;
 	}
 
 	private Recipe cursorToRecipe(Cursor cursor) {

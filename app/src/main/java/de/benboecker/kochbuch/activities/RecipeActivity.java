@@ -1,86 +1,122 @@
 package de.benboecker.kochbuch.activities;
 
+import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import de.benboecker.kochbuch.R;
-import de.benboecker.kochbuch.datasources.RecipeDataSource;
+import de.benboecker.kochbuch.model.RealmIndex;
 import de.benboecker.kochbuch.model.Recipe;
+import io.realm.Realm;
 
-public class RecipeActivity extends AppCompatActivity {
+public class RecipeActivity extends RealmActivity implements TextView.OnEditorActionListener {
 
 	EditText recipeNameEditText;
+	EditText personsEditText;
+	EditText durationEditText;
 	Recipe recipe;
-	RecipeDataSource dataSource;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe);
 
-		this.dataSource = new RecipeDataSource(this);
-		this.dataSource.open();
-
-		Bundle extras = this.getIntent().getExtras();
-		if (extras != null) {
-			long id = extras.getLong("id");
-			this.recipe = this.dataSource.getRecipe(id);
-		}
-
+		setupData();
 		setupInterface();
-		//showKeyboardFor(recipeNameEditText);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (saveData()) {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+			case android.R.id.home:
+				return !saveData(); // Negated because 'return true' means 'override the default back functionality' -> 'return false' doesn't return
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+		if (i == EditorInfo.IME_ACTION_DONE) {
+			saveData();
+		}
+		return false;
 	}
 
 	private void setupInterface() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+		setActionBar(toolbar);
 
-		ActionBar actionBar = getSupportActionBar();
+		ActionBar actionBar = getActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
 		recipeNameEditText = (EditText) findViewById(R.id.recipe_name);
-		recipeNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-			@Override
-			public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					if (recipe == null) {
-						RecipeActivity.this.recipe = RecipeActivity.this.dataSource.createRecipe(textView.getText().toString());
-					} else {
-						String oldName = recipe.getName();
-						recipe.setName(textView.getText().toString());
-						boolean success = RecipeActivity.this.dataSource.updateRecipe(recipe);
+		personsEditText = (EditText) findViewById(R.id.persons);
+		durationEditText = (EditText) findViewById(R.id.duration);
 
-						if (success) {
-							System.out.println("Successfully updated " + oldName + " to " + recipe.getName());
-						}
-					}
-
-					return true;
-				}
-				return false;
-			}
-		});
+		recipeNameEditText.setOnEditorActionListener(this);
+		personsEditText.setOnEditorActionListener(this);
+		durationEditText.setOnEditorActionListener(this);
 
 		if (recipe != null) {
+			String name = recipe.getName();
+			System.out.println(name);
+
 			recipeNameEditText.setText(recipe.getName());
+			personsEditText.setText(recipe.getDefaultNumberOfPersons() + "");
+			durationEditText.setText(recipe.getTime() + "");
+		}
+
+		Button button = (Button) findViewById(R.id.button2);
+		button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (recipe != null) {
+					Intent intent = new Intent(RecipeActivity.this, IngredientListActivity.class);
+					intent.putExtra("id", recipe.getId());
+					startActivity(intent);
+				}
+			}
+		});
+	}
+
+	private void setupData() {
+		Bundle extras = this.getIntent().getExtras();
+		if (extras != null) {
+			long recipeID = extras.getLong("id");
+			recipe = realm.where(Recipe.class).equalTo("id", recipeID).findFirst();
 		}
 	}
 
-	private void showKeyboardFor(EditText editText) {
-		editText.requestFocus();
-		InputMethodManager imm = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+	private boolean saveData() {
+		if (recipeNameEditText.getText().toString() == "") {
+			return (recipe == null);
+		}
+
+		realm.beginTransaction();
+		recipe.setName(recipeNameEditText.getText().toString());
+		recipe.setDefaultNumberOfPersons(Integer.parseInt(personsEditText.getText().toString()));
+		recipe.setTime(Integer.parseInt(durationEditText.getText().toString()));
+		realm.commitTransaction();
+
+		return true;
 	}
+
 }

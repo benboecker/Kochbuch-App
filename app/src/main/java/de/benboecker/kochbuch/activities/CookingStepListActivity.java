@@ -2,7 +2,6 @@ package de.benboecker.kochbuch.activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.ContextMenu;
@@ -13,27 +12,29 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.benboecker.kochbuch.R;
+import de.benboecker.kochbuch.adapters.CookingStepAdapter;
 import de.benboecker.kochbuch.adapters.IngredientAdapter;
 import de.benboecker.kochbuch.fragments.IngredientDialogFragment;
-import de.benboecker.kochbuch.fragments.TextInputDialogFragment;
+import de.benboecker.kochbuch.fragments.MultilineTextInputDialogFragment;
+import de.benboecker.kochbuch.model.CookingStep;
 import de.benboecker.kochbuch.model.Ingredient;
-import de.benboecker.kochbuch.model.RealmIndex;
 import de.benboecker.kochbuch.model.Recipe;
 
-public class IngredientListActivity extends RealmActivity implements AdapterView.OnItemClickListener, View.OnClickListener, IngredientDialogFragment.IngredientDialogListener {
+/**
+ * Created by Benni on 14.12.16.
+ */
 
-	private ListView listView;
-	private Recipe recipe;
-	private IngredientAdapter adapter;
+public class CookingStepListActivity extends RealmActivity implements AdapterView.OnItemClickListener, View.OnClickListener, IngredientDialogFragment.IngredientDialogListener {
+
+	ListView listView;
+	Recipe recipe;
+	CookingStepAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_ingedient_list);
+		setContentView(R.layout.activity_cooking_step_list);
 	}
 
 	@Override
@@ -46,10 +47,11 @@ public class IngredientListActivity extends RealmActivity implements AdapterView
 		}
 	}
 
+
 	@Override
 	public void onClick(View view) {
-		IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
-		ingredientDialogFragment.show(getFragmentManager(), "ingredient");
+		MultilineTextInputDialogFragment dialogFragment = new MultilineTextInputDialogFragment();
+		dialogFragment.show(getFragmentManager(), "cooking_step");
 	}
 
 	@Override
@@ -59,11 +61,11 @@ public class IngredientListActivity extends RealmActivity implements AdapterView
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		Ingredient ingredient = this.adapter.getItem(i);
+		CookingStep step = this.adapter.getItem(i);
 
-		IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
+		/*IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
 		ingredientDialogFragment.setIngredient(ingredient);
-		ingredientDialogFragment.show(getFragmentManager(), "ingredient");
+		ingredientDialogFragment.show(getFragmentManager(), "ingredient");*/
 	}
 
 	@Override
@@ -80,7 +82,7 @@ public class IngredientListActivity extends RealmActivity implements AdapterView
 	public boolean onContextItemSelected(MenuItem item) {
 		super.onContextItemSelected(item);
 
-		final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		final AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
 		if (item.getItemId() == 0) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -88,22 +90,24 @@ public class IngredientListActivity extends RealmActivity implements AdapterView
 			builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
 
-					Ingredient ingredient = adapter.getItem(info.position);
+					CookingStep step = adapter.getItem(info.position);
 
 					realm.beginTransaction();
-					recipe.getIngredients().remove(ingredient);
+					recipe.getSteps().remove(step);
 					realm.commitTransaction();
-					IngredientListActivity.this.adapter.notifyDataSetChanged();
+					CookingStepListActivity.this.adapter.notifyDataSetChanged();
 
 				}
 			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {}
+				public void onClick(DialogInterface dialog, int id) {
+				}
 			});
 			builder.create().show();
 		}
 
 		return true;
 	}
+
 
 	private void setupInterface() {
 		listView = (ListView) this.findViewById(R.id.list_view);
@@ -117,17 +121,17 @@ public class IngredientListActivity extends RealmActivity implements AdapterView
 		this.setActionBar(toolbar);
 
 		FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fab);
-		fab.setOnClickListener(IngredientListActivity.this);
+		fab.setOnClickListener(this);
 	}
+
 
 	private void setupData() {
 		Bundle extras = this.getIntent().getExtras();
 		if (extras != null) {
 			long recipeID = extras.getLong("id");
 			recipe = realm.where(Recipe.class).equalTo("id", recipeID).findFirst();
-			adapter = new IngredientAdapter(this, recipe.getIngredients());
+			adapter = new CookingStepAdapter(this, recipe.getSteps());
 		}
 	}
-
 
 }

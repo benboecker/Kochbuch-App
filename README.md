@@ -83,21 +83,15 @@ Die Detailansicht eines Rezepts zeigt die zugehörigen Informationen in einer Ta
 * Tab 2: Zutaten
 * Tab 3: Zubereitung
 
-Ganz oben ist – falls vorhanden – ein Foto des zubereiteten Gerichts abgebildet. Darunter erscheinen die generellen Informationen zu Name und Art des Gerichts, darunter dann die Zutaten und Zubereitung. Die Personenanzahl lässt sich anpassen wodurch sich die benötigten Zutatenmengen automatisch ändern. Ebenfalls ist in dieser Ansicht ein Button zu finden, welcher den Export einer Einkaufsliste vorbereitet. Diese lässt sich dann als Notiz speichern oder an Freunde versenden.
+Unter der ActionBar ist eine Tab-Leiste angeheftet, welche in 3 Tabs die Informationen zum gewählten Rezept anzeigt.
 
-Die dargestellten Informationen sind nicht editierbar, ein zusätzlicher Button in der Navigationsleiste versetzt das Rezept in den Bearbeitungsmodus.
+**Tab 1 – Rezept** beschreibt das Rezept mit den grundlegenden Informationen. Der obere Teil der Ansicht kann ein Bild des fertigen Gerichts anzeigen. Darunter stehen dann der Name des Rezepts, die gewählte Personenanzahl, Zubereitungsdauer und Besonderheiten. Die Personenanzahl lässt sich anpassen wodurch sich die benötigten Zutatenmengen automatisch ändern. Ebenfalls ist in dieser Ansicht ein Button zu finden, welcher den Export einer Einkaufsliste vorbereitet. Diese lässt sich dann als Notiz speichern oder an Freunde versenden.
 
-#### Rezept-Bearbeitungsansicht
-In der Bearbeitungsansicht werden alle Information editierbar. Der Name des Rezepts wird zu einem Textfeld, die Besonderheiten wie *warm* / *kalt*, *vegetarisch* / *vegan* lassen sich mit einem Pop-up festlegen, genau wie die Anzahl der Personen.
+Die dargestellten Informationen sind editierbar in dem man sie antippt.
 
-Wählt man die Zutatenliste aus, so wird man auf eine besondere Listenansicht aller Zutaten geleitet, siehe *Zutatenliste* weiter unten.
+**Tab 2 – Zutaten** listet die benötigten Lebensmittel und Mengen auf. Die einzelnen Zutaten lassen sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine neue Zutat wird über ein Pop-up hinzugefügt, dort befindet sich ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge für die aktuell im Rezept gewählte Personenanzahl einzugeben.
 
-Auch die einzelnen Zubereitungsschritte sind in Listenform angegeben, pro Zubereitungsschritt eine Listenzeile. Am Ende der Liste befindet sich ein Button mit dem sich ein neuer Eintrag zur Liste hinzufügen lässt. Es öffnet sich ein Popup mit einem Textfeld über das man den neuen Eintrag hinzufügen kann.
-
-#### Zutatenliste
-Die Zutatenliste wird zur besseren Übersicht in einer gesonderten Ansicht dargestellt.
-
-Die einzelnen Zutaten sowie die benötigte Ausstattung lässt sich mittels einem Button am Ende der Liste erweitern, Einträge lassen sich durch Gedrückthalten entfernen. Eine neue Zutat wird über ein Pop-up hinzugefügt, dort befindet sich ein Textfeld mit Autovervollständigung zur Eingabe und außerdem die Möglichkeit die benötigte Menge einzugeben.
+**Tab 3 – Zubereitung.** Auch die einzelnen Zubereitungsschritte sind in Listenform angegeben, pro Zubereitungsschritt eine Listenzeile. Am Ende der Liste befindet sich ein Button mit dem sich ein neuer Eintrag zur Liste hinzufügen lässt. Es öffnet sich ein Popup mit einem Textfeld über das man den neuen Eintrag hinzufügen kann.
 
 ## Gestaltung
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ingredients">
+        <item>Apfel</item>
+        <item>Bier</item>
+        <item>Cayennepfeffer</item>
+        <item>Eisbergsalat</item>
+        <item>Hackfleisch (gemischt)</item>
+        <item>Hackfleisch (Rind)</item>
+        <item>Hackfleisch (Schwein)</item>
+        <item>Hähnchenbrustfilet</item>
+        <item>Jalapeños</item>
+        <item>Knoblauchöl</item>
+        <item>Mais</item>
+        <item>Milch</item>
+        <item>Minutensteaks (Hähnchen)</item>
+        <item>Minutensteaks (Schwein)</item>
+        <item>Paprika</item>
+        <item>Pfeffer</item>
+        <item>Pommes</item>
+        <item>Salz</item>
+        <item>Sonnenblumenöl</item>
+        <item>Toast</item>
+        <item>Tomaten</item>
+        <item>Tomaten (gehackt)</item>
+        <item>Tomaten (passiert)</item>
+        <item>Wraps</item>
+        <item>Zwiebeln (rot)</item>
+        <item>Zwiebeln (weiß)</item>
+    </string-array>
+</resources>

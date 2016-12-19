@@ -1,6 +1,5 @@
 package de.benboecker.kochbuch.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,56 +7,48 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.text.AndroidCharacter;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.List;
 
 import de.benboecker.kochbuch.R;
 
 /**
- * Created by Benni on 19.11.16.
+ * Created by Benni on 14.12.16.
  */
 
-public class TextInputDialogFragment extends DialogFragment implements TextWatcher, DialogInterface.OnShowListener {
+public class MultilineTextInputDialogFragment extends DialogFragment implements TextWatcher, DialogInterface.OnShowListener {
 
 	public interface TextInputDialogListener {
 		void onTextInput(String text);
-		String getTextDialogTitle(TextInputDialogFragment fragment);
-		List<String> getAutoCompleteList();
+		String getTextDialogTitle(MultilineTextInputDialogFragment fragment);
 	}
 
-	private TextInputDialogListener listener;
-	private AutoCompleteTextView editText;
+	private MultilineTextInputDialogFragment.TextInputDialogListener listener;
+	private EditText editText;
 	private AlertDialog dialog;
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		final View dialogView = inflater.inflate(R.layout.dialog_text_input, null);
-		editText = (AutoCompleteTextView) dialogView.findViewById(R.id.text_input);
+		final View dialogView = inflater.inflate(R.layout.dialog_multiline_text_input, null);
+		editText = (EditText) dialogView.findViewById(R.id.multiline_edit_text);
 		editText.addTextChangedListener(this);
 
 		builder.setView(dialogView)
 				.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						String text = TextInputDialogFragment.this.editText.getText().toString();
-						TextInputDialogFragment.this.listener.onTextInput(text);
+						String text = MultilineTextInputDialogFragment.this.editText.getText().toString();
+						MultilineTextInputDialogFragment.this.listener.onTextInput(text);
 					}
 				})
 				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-						TextInputDialogFragment.this.getDialog().cancel();
+						MultilineTextInputDialogFragment.this.getDialog().cancel();
 					}
 				});
 
@@ -76,10 +67,6 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		dialog.setTitle(listener.getTextDialogTitle(this));
 
-		List<String> suggestions = listener.getAutoCompleteList();
-		ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, suggestions);
-		editText.setAdapter(adapter);
-
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 
@@ -88,7 +75,7 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 		super.onAttach(activity);
 
 		try {
-			this.listener = (TextInputDialogListener) activity;
+			this.listener = (MultilineTextInputDialogFragment.TextInputDialogListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString() + " must implement TextInputDialogListener");
 		}
@@ -104,7 +91,5 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 	}
 
 	@Override
-	public void afterTextChanged(Editable editable) {
-
-	}
+	public void afterTextChanged(Editable editable) {}
 }

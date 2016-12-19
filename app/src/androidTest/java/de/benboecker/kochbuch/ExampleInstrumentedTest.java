@@ -1,13 +1,20 @@
 package de.benboecker.kochbuch;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import junit.framework.Assert;
+
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
-import static org.junit.Assert.*;
+import de.benboecker.kochbuch.model.Recipe;
+
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -16,11 +23,18 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-	@Test
-	public void useAppContext() throws Exception {
-		// Context of the app under test.
-		Context appContext = InstrumentationRegistry.getTargetContext();
 
-		assertEquals("de.benboecker.kochbuch", appContext.getPackageName());
+	@Test
+	public void addition() {
+		int result = 2 + 2;
+		int expected = 4;
+		assertEquals(result, expected);
+	}
+	@Test
+	public void additionAssert() {
+		int result = 2 + 2;
+		int expected = 128;
+		assert result == expected;
+		assert result != expected;
 	}
 }

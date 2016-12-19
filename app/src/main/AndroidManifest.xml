@@ -7,27 +7,41 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:name=".model.KochbuchApplication"
+        android:theme="@style/AppTheme"
+        >
         <activity
             android:name=".activities.RecipeGridActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.RecipeActivity"
             android:label="@string/title_activity_recipe"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="de.benboecker.kochbuch.activities.RecipeGridActivity" >
+            android:parentActivityName=".activities.RecipeGridActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.benboecker.kochbuch.activities.RecipeGridActivity" />
+                android:value="de.benboecker.kochbuch.activities.RecipeGridActivity"/>
+        </activity>
+        <activity
+        android:name=".activities.IngredientListActivity"
+        android:label="@string/title_activity_recipe"
+        android:parentActivityName=".activities.IngredientListActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="de.benboecker.kochbuch.activities.RecipeActivity"/>
+    </activity>
+        <activity
+            android:name=".activities.RecipeTabActivity"
+            android:label="@string/title_activity_recipe_tab"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

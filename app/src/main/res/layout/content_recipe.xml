@@ -23,7 +23,55 @@
         android:layout_alignParentEnd="true"
         android:hint="@string/recipe_name"
         android:inputType="textPersonName"
-        android:singleLine="true"
+android:maxLines="1"
         android:layout_alignParentStart="true"
         android:textAlignment="viewStart"/>
+
+    <Button
+        android:text="Zutaten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="156dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/persons"
+        android:layout_below="@+id/recipe_name"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:text="@string/number_of_persons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recipe_name"
+        android:layout_marginTop="12dp"
+        android:id="@+id/textView"
+        />
+
+    <TextView
+        android:text="@string/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/duration"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp"
+        android:id="@+id/textView2"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:ems="10"
+        android:layout_marginTop="32dp"
+        android:id="@+id/duration"
+        android:layout_below="@+id/persons"
+        android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>

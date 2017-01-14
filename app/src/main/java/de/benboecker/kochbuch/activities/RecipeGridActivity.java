@@ -1,36 +1,26 @@
 package de.benboecker.kochbuch.activities;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 import android.widget.Toolbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.fragments.TextInputDialogFragment;
-import de.benboecker.kochbuch.model.RealmIndex;
+import de.benboecker.kochbuch.model.RealmHelper;
 import de.benboecker.kochbuch.model.Recipe;
 import de.benboecker.kochbuch.adapters.RecipeAdapter;
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 /**
@@ -131,7 +121,11 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeActivity.class);
+		//Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeActivity.class);
+		//recipeIntent.putExtra("id", RecipeGridActivity.this.adapter.getItem(i).getId());
+		//RecipeGridActivity.this.startActivity(recipeIntent);
+
+		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeTabActivity.class);
 		recipeIntent.putExtra("id", RecipeGridActivity.this.adapter.getItem(i).getId());
 		RecipeGridActivity.this.startActivity(recipeIntent);
 	}
@@ -144,9 +138,8 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 
 	@Override
 	public void onTextInput(String text) {
+		Recipe recipe = Recipe.newRecipe();
 		realm.beginTransaction();
-		long nextID = new RealmIndex().getNextID(Recipe.class);
-		Recipe recipe = realm.createObject(Recipe.class, nextID);
 		recipe.setName(text);
 		realm.commitTransaction();
 
@@ -155,14 +148,16 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 		RecipeGridActivity.this.startActivity(recipeIntent);
 	}
 
-	public String getTextDialogTitle(TextInputDialogFragment fragment) {
-		return "Neues Rezept";
-	}
-
 	@Override
 	public List<String> getAutoCompleteList() {
 		return null;
 	}
+
+
+	public String getTextDialogTitle(TextInputDialogFragment fragment) {
+		return "Neues Rezept";
+	}
+
 
 	private void setupInterface() {
 		gridView = (GridView) this.findViewById(R.id.grid_view);
@@ -178,6 +173,7 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(RecipeGridActivity.this);
 	}
+
 
 	private void setupData() {
 		RealmResults<Recipe> results1 = realm.where(Recipe.class).findAllSorted("name");

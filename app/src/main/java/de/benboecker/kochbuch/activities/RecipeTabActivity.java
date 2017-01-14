@@ -1,45 +1,57 @@
 package de.benboecker.kochbuch.activities;
 
+import android.app.ActionBar;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.Toolbar;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.adapters.PagerAdapter;
+import de.benboecker.kochbuch.fragments.IngredientDialogFragment;
+import de.benboecker.kochbuch.model.Ingredient;
+import de.benboecker.kochbuch.model.Recipe;
+import io.realm.Realm;
 
-public class RecipeTabActivity extends AppCompatActivity {
+public class RecipeTabActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientDialogListener {
 
-	ViewPager pager;
-	TabLayout tabLayout;
+	private Recipe recipe;
+	private Realm realm = Realm.getDefaultInstance();
+
+	private ViewPager pager;
+	private TabLayout tabLayout;
 
 
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_tab);
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
 
-		ActionBar actionBar = getSupportActionBar();
-		//actionBar.setNavigationMode();
+
+		setupData();
+		setupInterface();
+
+
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setActionBar(toolbar);
+
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.setDisplayHomeAsUpEnabled(true);
+		}
+
 
 		pager = (ViewPager) findViewById(R.id.view_pager);
 		tabLayout = (TabLayout) findViewById(R.id.tab_layout);
 
-
 		// Fragment manager to add fragment in viewpager we will pass object of Fragment manager to adpater class.
-		FragmentManager manager=getSupportFragmentManager();
+		FragmentManager manager = this.getSupportFragmentManager();
 
 		//object of PagerAdapter passing fragment manager object as a parameter of constructor of PagerAdapter class.
-		PagerAdapter adapter=new PagerAdapter(manager);
+		PagerAdapter adapter = new PagerAdapter(manager);
 
 		//set Adapter to view pager
 		pager.setAdapter(adapter);
@@ -57,4 +69,27 @@ public class RecipeTabActivity extends AppCompatActivity {
 
 	}
 
+
+	private void setupInterface() {
+
+	}
+
+	private void setupData() {
+		Bundle extras = this.getIntent().getExtras();
+		if (extras != null) {
+			long recipeID = extras.getLong("id");
+			recipe = realm.where(Recipe.class).equalTo("id", recipeID).findFirst();
+		}
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	@Override
+	public void onNewIngredient(Ingredient ingredient) {
+		realm.beginTransaction();;
+		recipe.getIngredients().add(ingredient);
+		realm.commitTransaction();
+	}
 }

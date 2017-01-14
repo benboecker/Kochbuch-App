@@ -1,5 +1,8 @@
 package de.benboecker.kochbuch.model;
 
+import java.util.Random;
+
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -14,6 +17,19 @@ public class Ingredient extends RealmObject {
 	private String unit = "";
 	private long quantity = 0;
 
+
+	public static Ingredient newIngredient() {
+		Ingredient ingredient = null;
+
+		Realm realm = Realm.getDefaultInstance();
+		if (!realm.isInTransaction()) {
+			realm.beginTransaction();
+			ingredient = realm.createObject(Ingredient.class, RealmHelper.getNextID(Ingredient.class, "id"));
+			realm.commitTransaction();
+		}
+
+		return ingredient;
+	}
 
 
 	public long getId() {

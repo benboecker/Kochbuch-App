@@ -13,6 +13,9 @@ public class KochbuchApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
+
+
 		Realm.init(this);
 		RealmConfiguration config = new RealmConfiguration.Builder()
 				.name("kochbuch.realm")

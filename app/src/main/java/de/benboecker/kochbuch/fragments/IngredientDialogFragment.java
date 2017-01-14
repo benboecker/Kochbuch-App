@@ -3,11 +3,12 @@ package de.benboecker.kochbuch.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,14 +19,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.model.Ingredient;
-import de.benboecker.kochbuch.model.RealmIndex;
+import de.benboecker.kochbuch.model.RealmHelper;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -99,13 +99,13 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+	public void onAttach(Context context) {
+		super.onAttach(context);
 
 		try {
-			this.listener = (IngredientDialogListener) activity;
+			this.listener = (IngredientDialogListener) context;
 		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString() + " must implement IngredientDialogFragment");
+			throw new ClassCastException(context.toString() + " must implement IngredientDialogFragment");
 		}
 	}
 
@@ -132,25 +132,26 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 		String quantityString = IngredientDialogFragment.this.quantityTextView.getText().toString();
 		String unit = IngredientDialogFragment.this.unitSpinner.getSelectedItem().toString();
 		long quantity;
-
-		realm.beginTransaction();
-		if (ingredient == null) {
-			long nextID = new RealmIndex().getNextID(Ingredient.class);
-			ingredient = realm.createObject(Ingredient.class, nextID);
-			listener.onNewIngredient(ingredient);
-		}
-
 		try {
 			quantity = Long.parseLong(quantityString);
 		} catch (Exception e) {
 			quantity = 0;
 		}
 
+		if (ingredient == null) {
+			ingredient = new Ingredient();
+			listener.onNewIngredient(ingredient);
+		}
+
+		realm.beginTransaction();
+
 		ingredient.setName(ingredientName);
 		ingredient.setQuantity(quantity);
 		ingredient.setUnit(unit);
+		realm.copyToRealmOrUpdate(ingredient);
 
 		realm.commitTransaction();
+
 	}
 
 

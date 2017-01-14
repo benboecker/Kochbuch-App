@@ -30,18 +30,13 @@
                 android:value="de.benboecker.kochbuch.activities.RecipeGridActivity"/>
         </activity>
         <activity
-        android:name=".activities.IngredientListActivity"
-        android:label="@string/title_activity_recipe"
-        android:parentActivityName=".activities.IngredientListActivity"
-        android:theme="@style/AppTheme.NoActionBar">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="de.benboecker.kochbuch.activities.RecipeActivity"/>
-    </activity>
-        <activity
             android:name=".activities.RecipeTabActivity"
             android:label="@string/title_activity_recipe_tab"
+            android:parentActivityName=".activities.RecipeGridActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.benboecker.kochbuch.activities.RecipeGridActivity"/>
         </activity>
     </application>
 

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+
 import de.benboecker.kochbuch.fragments.IngredientsFragment;
 import de.benboecker.kochbuch.fragments.RecipeFragment;
 
@@ -20,22 +21,17 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public Fragment getItem(int position) {
-
-		Fragment frag = null;
-
 		switch (position) {
 			case 0:
-				frag = new RecipeFragment();
-				break;
+				return new RecipeFragment();
 			case 1:
-				frag = new RecipeFragment();
-				break;
+				return new RecipeFragment();
 			case 2:
-				frag = new IngredientsFragment();
-				break;
+				IngredientsFragment ingredientsFragment = new IngredientsFragment();
+				//ingredientsFragment.setArguments();
+				return ingredientsFragment;
 		}
-
-		return frag;
+		return null;
 	}
 
 	@Override

@@ -13,9 +13,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import de.benboecker.kochbuch.R;
-import de.benboecker.kochbuch.model.RealmIndex;
 import de.benboecker.kochbuch.model.Recipe;
-import io.realm.Realm;
 
 public class RecipeActivity extends RealmActivity implements TextView.OnEditorActionListener {
 
@@ -84,17 +82,6 @@ public class RecipeActivity extends RealmActivity implements TextView.OnEditorAc
 			durationEditText.setText(recipe.getTime() + "");
 		}
 
-		Button button = (Button) findViewById(R.id.button2);
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (recipe != null) {
-					Intent intent = new Intent(RecipeActivity.this, IngredientListActivity.class);
-					intent.putExtra("id", recipe.getId());
-					startActivity(intent);
-				}
-			}
-		});
 	}
 
 	private void setupData() {

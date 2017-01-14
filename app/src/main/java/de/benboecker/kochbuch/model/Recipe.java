@@ -3,6 +3,7 @@ package de.benboecker.kochbuch.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -22,6 +23,16 @@ public class Recipe extends RealmObject{
 	RealmList<CookingStep> steps;
 	RealmList<Tag> tags;
 
+	public static Recipe newRecipe() {
+		Recipe recipe = null;
+
+		Realm realm = Realm.getDefaultInstance();
+		realm.beginTransaction();
+		recipe = realm.createObject(Recipe.class, RealmHelper.getNextID(Recipe.class, "id"));
+		realm.commitTransaction();
+
+		return recipe;
+	}
 
 	public RealmList<CookingStep> getSteps() {
 		return steps;

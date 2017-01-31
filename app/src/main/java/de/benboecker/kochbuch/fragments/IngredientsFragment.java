@@ -26,7 +26,7 @@ import io.realm.Realm;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IngredientsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class IngredientsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, IngredientDialogFragment.IngredientDialogListener {
 
 	private ListView listView;
 	private Recipe recipe;
@@ -34,14 +34,12 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 	private Realm realm = Realm.getDefaultInstance();
 
 
-	public IngredientsFragment() {
-
-	}
+	public IngredientsFragment() {}
 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+		setHasOptionsMenu(true);
 
 		return inflater.inflate(R.layout.fragment_ingredients, container, false);
 	}
@@ -59,6 +57,8 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 	@Override
 	public void onClick(View view) {
 		IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
+		ingredientDialogFragment.setListener(this);
+
 		ingredientDialogFragment.show(this.getFragmentManager(), "ingredient");
 	}
 
@@ -68,6 +68,7 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 
 		IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
 		ingredientDialogFragment.setIngredient(ingredient);
+		ingredientDialogFragment.setListener(this);
 		ingredientDialogFragment.show(getFragmentManager(), "ingredient");
 	}
 
@@ -114,8 +115,25 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 	public void onAttach(Context context) {
 		super.onAttach(context);
 
-		RecipeTabActivity tabActivity = (RecipeTabActivity)context;
-		recipe = tabActivity.getRecipe();
+		try {
+			RecipeTabActivity tabActivity = (RecipeTabActivity)context;
+			recipe = tabActivity.getRecipe();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	@Override
+	public void onNewIngredient(Ingredient ingredient) {
+		realm.beginTransaction();;
+		recipe.getIngredients().add(ingredient);
+		realm.commitTransaction();
+
+		adapter.notifyDataSetChanged();
+	}
+
+	public void onDismiss() {
+		adapter.notifyDataSetChanged();
 	}
 
 	private void setupInterface() {

@@ -3,10 +3,9 @@ package de.benboecker.kochbuch.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -24,7 +23,6 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 
 	public interface TextInputDialogListener {
 		void onTextInput(String text);
-		String getTextDialogTitle(MultilineTextInputDialogFragment fragment);
 	}
 
 	private MultilineTextInputDialogFragment.TextInputDialogListener listener;
@@ -62,23 +60,9 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 		this.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 	}
 
-	@Nullable
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		dialog.setTitle(listener.getTextDialogTitle(this));
-
 		return super.onCreateView(inflater, container, savedInstanceState);
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-
-		try {
-			this.listener = (MultilineTextInputDialogFragment.TextInputDialogListener) activity;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(activity.toString() + " must implement TextInputDialogListener");
-		}
 	}
 
 	@Override
@@ -92,4 +76,10 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 
 	@Override
 	public void afterTextChanged(Editable editable) {}
+
+
+	public void setListener(TextInputDialogListener listener) {
+		this.listener = listener;
+	}
+
 }

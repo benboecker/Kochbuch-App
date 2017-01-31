@@ -1,5 +1,6 @@
 package de.benboecker.kochbuch.activities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,34 +19,45 @@ import java.util.List;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.fragments.TextInputDialogFragment;
-import de.benboecker.kochbuch.model.RealmHelper;
 import de.benboecker.kochbuch.model.Recipe;
 import de.benboecker.kochbuch.adapters.RecipeAdapter;
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 /**
  * Created by Benni on 19.11.16.
  */
 
-public class RecipeGridActivity extends RealmActivity implements AdapterView.OnItemClickListener, View.OnClickListener, TextInputDialogFragment.TextInputDialogListener {
+public class RecipeGridActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener, TextInputDialogFragment.TextInputDialogListener {
 
 	private GridView gridView;
 	private RecipeAdapter adapter;
+	protected Realm realm;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recipe_list);
+		realm = Realm.getDefaultInstance();
+
+		setContentView(R.layout.activity_recipe_grid);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
+		realm = Realm.getDefaultInstance();
 
 		if (adapter == null) {
 			setupData();
 			setupInterface();
 		}
+	}
+
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		realm.close();
 	}
 
 	@Override
@@ -121,10 +133,6 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		//Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeActivity.class);
-		//recipeIntent.putExtra("id", RecipeGridActivity.this.adapter.getItem(i).getId());
-		//RecipeGridActivity.this.startActivity(recipeIntent);
-
 		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeTabActivity.class);
 		recipeIntent.putExtra("id", RecipeGridActivity.this.adapter.getItem(i).getId());
 		RecipeGridActivity.this.startActivity(recipeIntent);
@@ -143,7 +151,7 @@ public class RecipeGridActivity extends RealmActivity implements AdapterView.OnI
 		recipe.setName(text);
 		realm.commitTransaction();
 
-		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeActivity.class);
+		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeTabActivity.class);
 		recipeIntent.putExtra("id", recipe.getId());
 		RecipeGridActivity.this.startActivity(recipeIntent);
 	}

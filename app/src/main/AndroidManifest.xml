@@ -8,8 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".model.KochbuchApplication"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
+
         <activity
             android:name=".activities.RecipeGridActivity"
             android:label="@string/app_name"
@@ -20,15 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.RecipeActivity"
-            android:label="@string/title_activity_recipe"
-            android:parentActivityName=".activities.RecipeGridActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.benboecker.kochbuch.activities.RecipeGridActivity"/>
-        </activity>
+
         <activity
             android:name=".activities.RecipeTabActivity"
             android:label="@string/title_activity_recipe_tab"

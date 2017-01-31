@@ -45,14 +45,14 @@ public class CookingStepAdapter extends ArrayAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.row_ingredient, parent, false);
+			convertView = inflater.inflate(R.layout.list_cell_cooking_step, parent, false);
 		}
 
 		CookingStep step = getItem(position);
 
 		if (step != null) {
-			TextView cookingStepTextView = (TextView) convertView.findViewById(R.id.text1);
-			TextView numberTextView = (TextView) convertView.findViewById(R.id.text2);
+			TextView cookingStepTextView = (TextView) convertView.findViewById(R.id.step);
+			TextView numberTextView = (TextView) convertView.findViewById(R.id.number);
 
 			cookingStepTextView.setText(step.getDescription());
 			numberTextView.setText(position + ".");

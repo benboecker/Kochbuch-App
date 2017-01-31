@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 
+import de.benboecker.kochbuch.fragments.CookingStepFragment;
 import de.benboecker.kochbuch.fragments.IngredientsFragment;
 import de.benboecker.kochbuch.fragments.RecipeFragment;
 
@@ -25,11 +26,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 			case 0:
 				return new RecipeFragment();
 			case 1:
-				return new RecipeFragment();
+				return new CookingStepFragment();
 			case 2:
-				IngredientsFragment ingredientsFragment = new IngredientsFragment();
-				//ingredientsFragment.setArguments();
-				return ingredientsFragment;
+				return new IngredientsFragment();
 		}
 		return null;
 	}

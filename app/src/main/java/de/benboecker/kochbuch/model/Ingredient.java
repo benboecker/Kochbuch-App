@@ -19,15 +19,8 @@ public class Ingredient extends RealmObject {
 
 
 	public static Ingredient newIngredient() {
-		Ingredient ingredient = null;
-
-		Realm realm = Realm.getDefaultInstance();
-		if (!realm.isInTransaction()) {
-			realm.beginTransaction();
-			ingredient = realm.createObject(Ingredient.class, RealmHelper.getNextID(Ingredient.class, "id"));
-			realm.commitTransaction();
-		}
-
+		Ingredient ingredient = new Ingredient();
+		ingredient.setId(RealmHelper.getNextID(Ingredient.class, "id"));
 		return ingredient;
 	}
 

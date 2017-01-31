@@ -1,20 +1,16 @@
 package de.benboecker.kochbuch.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.TwoLineListItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.model.Ingredient;
-import de.benboecker.kochbuch.model.Recipe;
 
 /**
  * Created by Benni on 07.12.16.
@@ -49,7 +45,7 @@ public class IngredientAdapter extends ArrayAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater.inflate(R.layout.row_ingredient, parent, false);
+			convertView = inflater.inflate(R.layout.list_cell_ingredient, parent, false);
 		}
 
 		Ingredient ingredient = getItem(position);

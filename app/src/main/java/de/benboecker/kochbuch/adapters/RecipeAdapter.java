@@ -19,10 +19,11 @@ import de.benboecker.kochbuch.model.Recipe;
 public class RecipeAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-
+	private Context context;
 	private List<Recipe> recipes = null;
 
 	public RecipeAdapter(Context context) {
+		this.context = context;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
@@ -50,7 +51,7 @@ public class RecipeAdapter extends BaseAdapter {
 
 	public View getView(int position, View currentView, ViewGroup parent) {
 		if (currentView == null) {
-			currentView = inflater.inflate(R.layout.recipe_cell, parent, false);
+			currentView = inflater.inflate(R.layout.grid_cell_recipe, parent, false);
 		}
 
 		Recipe recipe = recipes.get(position);
@@ -58,6 +59,10 @@ public class RecipeAdapter extends BaseAdapter {
 		if (recipe != null) {
 			TextView recipeNameTextView = (TextView) currentView.findViewById(R.id.recipe_name);
 			recipeNameTextView.setText(recipe.getName());
+
+			//FontUtil.setCustomFont(this, context, attrs, R.styleable.com_ifgi_klimastationms_FontableTextView, R.styleable.com_ifgi_klimastationms_FontableTextView_font);
+
+			//FontHelper.setCustomFont(recipeNameTextView, this.context, );
 		}
 
 		return currentView;

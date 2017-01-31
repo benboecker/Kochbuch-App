@@ -6,16 +6,15 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toolbar;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.adapters.PagerAdapter;
-import de.benboecker.kochbuch.fragments.IngredientDialogFragment;
-import de.benboecker.kochbuch.model.Ingredient;
 import de.benboecker.kochbuch.model.Recipe;
 import io.realm.Realm;
 
-public class RecipeTabActivity extends AppCompatActivity implements IngredientDialogFragment.IngredientDialogListener {
+public class RecipeTabActivity extends AppCompatActivity {
 
 	private Recipe recipe;
 	private Realm realm = Realm.getDefaultInstance();
@@ -24,17 +23,17 @@ public class RecipeTabActivity extends AppCompatActivity implements IngredientDi
 	private TabLayout tabLayout;
 
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_recipe_tab);
 
-
 		setupData();
 		setupInterface();
+	}
 
 
+	private void setupInterface() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setActionBar(toolbar);
 
@@ -42,7 +41,12 @@ public class RecipeTabActivity extends AppCompatActivity implements IngredientDi
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
-
+		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RecipeTabActivity.this.finish();
+			}
+		});
 
 		pager = (ViewPager) findViewById(R.id.view_pager);
 		tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -65,13 +69,7 @@ public class RecipeTabActivity extends AppCompatActivity implements IngredientDi
 		//Setting tabs from adpater
 		tabLayout.setTabsFromPagerAdapter(adapter);
 
-
-
-	}
-
-
-	private void setupInterface() {
-
+		setTitle(recipe.getName());
 	}
 
 	private void setupData() {
@@ -86,10 +84,18 @@ public class RecipeTabActivity extends AppCompatActivity implements IngredientDi
 		return recipe;
 	}
 
-	@Override
-	public void onNewIngredient(Ingredient ingredient) {
-		realm.beginTransaction();;
-		recipe.getIngredients().add(ingredient);
-		realm.commitTransaction();
+	private boolean saveData() {
+//		if (recipeNameEditText.getText().toString() == "") {
+//			return (recipe == null);
+//		}
+//
+//		realm.beginTransaction();
+//		recipe.setName(recipeNameEditText.getText().toString());
+//		recipe.setDefaultNumberOfPersons(Integer.parseInt(personsEditText.getText().toString()));
+//		recipe.setTime(Integer.parseInt(durationEditText.getText().toString()));
+//		realm.commitTransaction();
+
+		return true;
 	}
+
 }

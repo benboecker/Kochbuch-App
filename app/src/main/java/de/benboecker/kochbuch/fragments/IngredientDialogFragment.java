@@ -37,6 +37,7 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 
 	public interface IngredientDialogListener {
 		void onNewIngredient(Ingredient ingredient);
+		void onDismiss();
 	}
 
 	private IngredientDialogListener listener;
@@ -99,17 +100,6 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 	}
 
 	@Override
-	public void onAttach(Context context) {
-		super.onAttach(context);
-
-		try {
-			this.listener = (IngredientDialogListener) context;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(context.toString() + " must implement IngredientDialogFragment");
-		}
-	}
-
-	@Override
 	public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
 	@Override
@@ -152,6 +142,7 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 
 		realm.commitTransaction();
 
+		listener.onDismiss();
 	}
 
 
@@ -174,5 +165,10 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 
 		ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, suggestions);
 		ingredientTextView.setAdapter(adapter);
+	}
+
+
+	public void setListener(IngredientDialogListener listener) {
+		this.listener = listener;
 	}
 }

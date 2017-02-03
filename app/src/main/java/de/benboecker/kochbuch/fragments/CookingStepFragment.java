@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import javax.crypto.NullCipher;
+
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.activities.RecipeTabActivity;
 import de.benboecker.kochbuch.adapters.CookingStepAdapter;
@@ -32,6 +34,7 @@ public class CookingStepFragment extends Fragment implements AdapterView.OnItemC
 	private Recipe recipe;
 	private CookingStepAdapter adapter;
 	private Realm realm = Realm.getDefaultInstance();
+	private long selectedCookingStepID = -1;
 
 
 	public CookingStepFragment() {}
@@ -62,12 +65,14 @@ public class CookingStepFragment extends Fragment implements AdapterView.OnItemC
 
 	@Override
 	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-		CookingStep ingredient = this.adapter.getItem(i);
+		CookingStep cookingStep = this.adapter.getItem(i);
 
-		/*IngredientDialogFragment ingredientDialogFragment = new IngredientDialogFragment();
-		ingredientDialogFragment.setIngredient(ingredient);
-		ingredientDialogFragment.setListener(this);
-		ingredientDialogFragment.show(getFragmentManager(), "ingredient");*/
+		selectedCookingStepID = cookingStep.getId();
+
+		MultilineTextInputDialogFragment dialogFragment = new MultilineTextInputDialogFragment();
+		dialogFragment.setText(cookingStep.getDescription());
+		dialogFragment.setListener(this);
+		dialogFragment.show(getFragmentManager(), "cookingStep");
 	}
 
 	@Override
@@ -121,12 +126,18 @@ public class CookingStepFragment extends Fragment implements AdapterView.OnItemC
 		}
 	}
 
+
 	private void setupInterface() {
 		View view = this.getView();
 		listView = (ListView) view.findViewById(R.id.list_view);
 		listView.setOnItemClickListener(this);
-		listView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
+
+		// Live Reloading klappt sonst nicht
+		if (adapter != null) {
+			listView.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+		}
+
 		listView.invalidate();
 		registerForContextMenu(listView);
 
@@ -134,13 +145,31 @@ public class CookingStepFragment extends Fragment implements AdapterView.OnItemC
 		fab.setOnClickListener(CookingStepFragment.this);
 	}
 
-	private void setupData() {
-		adapter = new CookingStepAdapter(this.getContext(), recipe.getSteps());
-	}
 
+	private void setupData() {
+		// Live Reloading klappt sonst nicht
+		if (recipe != null) {
+			adapter = new CookingStepAdapter(getContext(), recipe.getSteps());
+		}
+	}
 
 	@Override
 	public void onTextInput(String text) {
+
+		realm.beginTransaction();
+		CookingStep cookingStep;
+		if (selectedCookingStepID == -1) {
+			cookingStep = CookingStep.newCookingStep();
+			recipe.getSteps().add(cookingStep);
+		} else {
+			cookingStep = realm.where(CookingStep.class).equalTo("id", selectedCookingStepID).findFirst();
+		}
+
+		cookingStep.setDescription(text);
+		realm.copyToRealmOrUpdate(cookingStep);
+		realm.commitTransaction();
+
 		adapter.notifyDataSetChanged();
+		selectedCookingStepID = -1;
 	}
 }

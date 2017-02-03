@@ -29,6 +29,8 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 	private EditText editText;
 	private AlertDialog dialog;
 
+	private String text;
+
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -57,6 +59,8 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 
 	@Override
 	public void onShow(DialogInterface dialog) {
+		editText.setText(this.text);
+
 		this.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
 	}
 
@@ -82,4 +86,7 @@ public class MultilineTextInputDialogFragment extends DialogFragment implements 
 		this.listener = listener;
 	}
 
+	public void setText(String text) {
+		this.text = text;
+	}
 }

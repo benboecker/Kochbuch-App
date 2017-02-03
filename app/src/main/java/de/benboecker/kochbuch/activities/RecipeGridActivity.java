@@ -19,6 +19,7 @@ import java.util.List;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.fragments.TextInputDialogFragment;
+import de.benboecker.kochbuch.model.FontManager;
 import de.benboecker.kochbuch.model.Recipe;
 import de.benboecker.kochbuch.adapters.RecipeAdapter;
 import io.realm.Realm;
@@ -39,6 +40,8 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 		super.onCreate(savedInstanceState);
 		realm = Realm.getDefaultInstance();
 
+		FontManager.init(getAssets());
+
 		setContentView(R.layout.activity_recipe_grid);
 	}
 
@@ -52,7 +55,6 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 			setupInterface();
 		}
 	}
-
 
 	@Override
 	protected void onDestroy() {
@@ -150,6 +152,7 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 		realm.beginTransaction();
 		recipe.setName(text);
 		realm.commitTransaction();
+		adapter.notifyDataSetChanged();
 
 		Intent recipeIntent = new Intent(RecipeGridActivity.this, RecipeTabActivity.class);
 		recipeIntent.putExtra("id", recipe.getId());
@@ -180,6 +183,8 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(RecipeGridActivity.this);
+
+
 	}
 
 

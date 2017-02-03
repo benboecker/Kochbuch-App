@@ -19,6 +19,7 @@ import android.widget.ListView;
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.activities.RecipeTabActivity;
 import de.benboecker.kochbuch.adapters.IngredientAdapter;
+import de.benboecker.kochbuch.model.CookingStep;
 import de.benboecker.kochbuch.model.Ingredient;
 import de.benboecker.kochbuch.model.Recipe;
 import io.realm.Realm;
@@ -32,7 +33,6 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 	private Recipe recipe;
 	private IngredientAdapter adapter;
 	private Realm realm = Realm.getDefaultInstance();
-
 
 	public IngredientsFragment() {}
 
@@ -141,7 +141,9 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 		listView = (ListView) view.findViewById(R.id.list_view);
 		listView.setOnItemClickListener(this);
 		listView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
+		if (adapter != null) { /// Live Reloading funktioniert sonst nicht
+			adapter.notifyDataSetChanged();
+		}
 		listView.invalidate();
 		registerForContextMenu(listView);
 
@@ -150,6 +152,8 @@ public class IngredientsFragment extends Fragment implements AdapterView.OnItemC
 	}
 
 	private void setupData() {
-		adapter = new IngredientAdapter(this.getContext(), recipe.getIngredients());
+		if (adapter == null && recipe != null) {
+			adapter = new IngredientAdapter(this.getContext(), recipe.getIngredients());
+		}
 	}
 }

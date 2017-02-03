@@ -55,7 +55,7 @@ public class CookingStepAdapter extends ArrayAdapter {
 			TextView numberTextView = (TextView) convertView.findViewById(R.id.number);
 
 			cookingStepTextView.setText(step.getDescription());
-			numberTextView.setText(position + ".");
+			numberTextView.setText((position + 1) + ".");
 		}
 
 		return convertView;

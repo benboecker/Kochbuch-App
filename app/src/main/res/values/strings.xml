@@ -30,8 +30,7 @@
         <item>Teelöffel</item>
         <item>Esslöffel</item>
     </string-array>
-    <string name="title_activity_tab_recipe">TabRecipeActivity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="placeholder_image_description">Füge ein Bild hinzu!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

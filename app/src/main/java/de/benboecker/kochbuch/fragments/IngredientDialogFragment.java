@@ -129,7 +129,7 @@ public class IngredientDialogFragment extends DialogFragment implements TextWatc
 		}
 
 		if (ingredient == null) {
-			ingredient = new Ingredient();
+			ingredient = Ingredient.newIngredient();
 			listener.onNewIngredient(ingredient);
 		}
 

@@ -62,7 +62,7 @@ public class RecipeAdapter extends BaseAdapter {
 
 			//FontUtil.setCustomFont(this, context, attrs, R.styleable.com_ifgi_klimastationms_FontableTextView, R.styleable.com_ifgi_klimastationms_FontableTextView_font);
 
-			//FontHelper.setCustomFont(recipeNameTextView, this.context, );
+			//FontManager.setCustomFont(recipeNameTextView, this.context, );
 		}
 
 		return currentView;

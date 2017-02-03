@@ -19,6 +19,8 @@ public class Recipe extends RealmObject{
 	private long time = 0;
 	private boolean isFavorite = false;
 	private int defaultNumberOfPersons = 0;
+	private String imageFileName = "";
+
 	RealmList<Ingredient> ingredients;
 	RealmList<CookingStep> steps;
 	RealmList<Tag> tags;
@@ -84,4 +86,11 @@ public class Recipe extends RealmObject{
 	}
 
 
+	public String getImageFileName() {
+		return imageFileName;
+	}
+
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
+	}
 }

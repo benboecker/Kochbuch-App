@@ -1,20 +1,27 @@
 package de.benboecker.kochbuch.activities;
 
-import android.app.ActionBar;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar ;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toolbar;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.adapters.PagerAdapter;
+import de.benboecker.kochbuch.fragments.RecipeFragment;
+import de.benboecker.kochbuch.fragments.TextInputDialogFragment;
 import de.benboecker.kochbuch.model.Recipe;
 import io.realm.Realm;
 
-public class RecipeTabActivity extends AppCompatActivity {
+public class RecipeTabActivity extends AppCompatActivity implements TextInputDialogFragment.TextInputDialogListener {
 
 	private Recipe recipe;
 	private Realm realm = Realm.getDefaultInstance();
@@ -32,21 +39,68 @@ public class RecipeTabActivity extends AppCompatActivity {
 		setupInterface();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.menu_recipe, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		switch (id) {
+			case R.id.share:
+				Intent sendIntent = new Intent();
+				sendIntent.setAction(Intent.ACTION_SEND);
+				sendIntent.putExtra(Intent.EXTRA_TEXT, recipe.getShareString());
+				sendIntent.setType("text/plain");
+				this.startActivity(sendIntent);
+				break;
+			case R.id.rename:
+				TextInputDialogFragment textInput = new TextInputDialogFragment();
+				textInput.show(getFragmentManager(), "recipe");
+				break;
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				break;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onTextInput(String text) {
+		realm.beginTransaction();
+		recipe.setName(text);
+		realm.commitTransaction();
+
+		setTitle(recipe.getName());
+	}
+
+	@Override
+	public String getTextDialogTitle(TextInputDialogFragment fragment) {
+		return getResources().getString(R.string.recipe_name);
+	}
+
+	@Override
+	public String getDefaultText(TextInputDialogFragment fragment) {
+		return recipe.getName();
+	}
+
 
 	private void setupInterface() {
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setActionBar(toolbar);
+		setSupportActionBar(toolbar);
 
-		ActionBar actionBar = getActionBar();
+		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				RecipeTabActivity.this.finish();
-			}
-		});
 
 		pager = (ViewPager) findViewById(R.id.view_pager);
 		tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -72,6 +126,7 @@ public class RecipeTabActivity extends AppCompatActivity {
 		setTitle(recipe.getName());
 	}
 
+
 	private void setupData() {
 		Bundle extras = this.getIntent().getExtras();
 		if (extras != null) {
@@ -80,22 +135,9 @@ public class RecipeTabActivity extends AppCompatActivity {
 		}
 	}
 
+
 	public Recipe getRecipe() {
 		return recipe;
-	}
-
-	private boolean saveData() {
-//		if (recipeNameEditText.getText().toString() == "") {
-//			return (recipe == null);
-//		}
-//
-//		realm.beginTransaction();
-//		recipe.setName(recipeNameEditText.getText().toString());
-//		recipe.setDefaultNumberOfPersons(Integer.parseInt(personsEditText.getText().toString()));
-//		recipe.setTime(Integer.parseInt(durationEditText.getText().toString()));
-//		realm.commitTransaction();
-
-		return true;
 	}
 
 }

@@ -3,8 +3,13 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="de.benboecker.kochbuch.activities.IngredientListActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/rename"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/rename"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="101"
+        android:title="@string/share"
         app:showAsAction="never"/>
 </menu>

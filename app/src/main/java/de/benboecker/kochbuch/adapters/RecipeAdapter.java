@@ -1,10 +1,14 @@
 package de.benboecker.kochbuch.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -59,10 +63,13 @@ public class RecipeAdapter extends BaseAdapter {
 		if (recipe != null) {
 			TextView recipeNameTextView = (TextView) currentView.findViewById(R.id.recipe_name);
 			recipeNameTextView.setText(recipe.getName());
+			recipeNameTextView.setBackgroundResource(R.color.transparentBlack);
+			Bitmap recipeImage = recipe.getImage((Activity) context);
 
-			//FontUtil.setCustomFont(this, context, attrs, R.styleable.com_ifgi_klimastationms_FontableTextView, R.styleable.com_ifgi_klimastationms_FontableTextView_font);
-
-			//FontManager.setCustomFont(recipeNameTextView, this.context, );
+			if (recipeImage != null) {
+				ImageView recipeImageView = (ImageView) currentView.findViewById(R.id.recipe_image);
+				recipeImageView.setImageBitmap(recipeImage);
+			}
 		}
 
 		return currentView;

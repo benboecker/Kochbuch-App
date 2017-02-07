@@ -25,12 +25,13 @@
             android:name=".activities.RecipeTabActivity"
             android:label="@string/title_activity_recipe_tab"
             android:parentActivityName=".activities.RecipeGridActivity"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.benboecker.kochbuch.activities.RecipeGridActivity"/>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
 </manifest>

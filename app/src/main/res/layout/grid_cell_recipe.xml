@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:custom="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:minHeight="44dp"
-              android:layout_height="match_parent">
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                               xmlns:app="http://schemas.android.com/apk/res-auto"
+                                               xmlns:custom="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:minHeight="120dp"
+                android:layout_height="match_parent">
+
+    <ImageView
+        app:layout_widthPercent="100%"
+        app:layout_aspectRatio="100%"
+        android:scaleType="centerCrop"
+        android:id="@+id/recipe_image"
+        android:contentDescription="@string/recipe_name"
+        custom:srcCompat="@drawable/placeholder"
+        />
 
     <de.benboecker.kochbuch.view.FontTextView
-        android:text="TextView"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:textColor="#efefef"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_alignBottom="@id/recipe_image"
         android:gravity="center_vertical"
-        android:textSize="30dp"
+        android:textSize="24sp"
         custom:typefaceAsset="fonts/IndieFlower.ttf"
         android:id="@+id/recipe_name"/>
 
-</LinearLayout>
+</android.support.percent.PercentRelativeLayout>

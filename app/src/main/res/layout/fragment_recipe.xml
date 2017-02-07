@@ -1,13 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
              xmlns:custom="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:paddingLeft="@dimen/activity_horizontal_margin"
-             android:paddingRight="@dimen/activity_horizontal_margin"
-
              tools:context="de.benboecker.kochbuch.fragments.RecipeFragment">
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/placeholder"
+        android:id="@+id/recipe_image"
+        android:background="@android:color/transparent"
+        android:layout_marginBottom="20dp"
+        android:scaleType="centerCrop"/>
+
+    <de.benboecker.kochbuch.view.FontTextView
+        android:text="@string/placeholder_image_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textLight"
+        android:textAlignment="center"
+        android:layout_marginTop="-75dp"
+        custom:typefaceAsset="fonts/IndieFlower.ttf"
+        android:layout_below="@id/recipe_image"
+        android:textSize="18sp"
+        android:id="@+id/imageDescription"/>
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,71 +32,88 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:descendantFocusability="beforeDescendants"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:focusableInTouchMode="true"
         android:layout_height="match_parent"
+        android:layout_below="@id/recipe_image"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="de.benboecker.kochbuch.fragments.RecipeFragment">
-
-
-        <de.benboecker.kochbuch.view.FontTextView
-            android:text="@string/placeholder_image_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/placeholder"
-            android:textColor="@color/textLight"
-            android:textAlignment="center"
-            custom:typefaceAsset="fonts/IndieFlower.ttf"
-            android:layout_marginTop="-75dp"
-            android:textSize="18dp"
-            android:id="@+id/imageDescription"/>
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:srcCompat="@drawable/placeholder"
-            android:id="@+id/placeholder"
-            android:background="@color/transparent"
-            android:layout_marginBottom="20dp"
-            android:scaleType="fitEnd"/>
-
-
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:ems="9"
+            android:textSize="26sp"
+            android:ems="3"
+            android:layout_marginTop="-5dp"
+            android:nextFocusDown="@+id/duration"
             android:id="@+id/persons"
-            android:layout_below="@+id/placeholder"
             android:layout_alignParentEnd="true"/>
 
-        <TextView
+        <de.benboecker.kochbuch.view.FontTextView
             android:text="@string/number_of_persons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/placeholder"
-            android:textSize="16dp"
-            android:layout_marginTop="12dp"
+            android:textSize="26sp"
+            android:gravity="right"
+            custom:typefaceAsset="fonts/IndieFlower.ttf"
+            android:layout_alignBaseline="@id/persons"
             android:id="@+id/textView"/>
-
-        <TextView
-            android:text="@string/duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16dp"
-            android:layout_alignTop="@+id/duration"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="11dp"
-            android:id="@+id/textView2"/>
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="time"
-            android:ems="9"
-            android:layout_marginTop="32dp"
+            android:ems="3"
+            android:layout_marginTop="5dp"
+            android:textSize="26sp"
+            android:nextFocusDown="@+id/persons"
             android:id="@+id/duration"
             android:layout_below="@+id/persons"
             android:layout_alignParentEnd="true"/>
+
+        <de.benboecker.kochbuch.view.FontTextView
+            android:text="@string/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26sp"
+            custom:typefaceAsset="fonts/IndieFlower.ttf"
+            android:gravity="right"
+            android:layout_alignRight="@id/textView"
+            android:layout_alignBaseline="@id/duration"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView2"/>
+
+        <CheckBox
+            android:text="@string/vegetarian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_alignParentRight="true"
+            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+            android:button="@null"
+            android:textSize="26sp"
+            android:layout_marginTop="25dp"
+            android:drawablePadding="38dp"
+            android:paddingRight="85dp"
+            android:id="@+id/vegetarianCheckBox"
+            android:textAppearance="@android:style/TextAppearance"/>
+
+        <CheckBox
+            android:text="@string/vegan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/vegetarianCheckBox"
+            android:layout_alignParentRight="true"
+            android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+            android:button="@null"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="38dp"
+            android:paddingRight="85dp"
+            android:textSize="26sp"
+            android:id="@+id/veganCheckBox"
+            android:textAppearance="@android:style/TextAppearance"/>
+
     </RelativeLayout>
-</FrameLayout>
+</RelativeLayout>

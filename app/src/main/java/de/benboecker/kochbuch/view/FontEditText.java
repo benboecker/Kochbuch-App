@@ -5,31 +5,27 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import de.benboecker.kochbuch.R;
 import de.benboecker.kochbuch.model.FontManager;
 
 /**
- * Created by Benni on 31.01.17.
+ * Created by Benni on 06.02.17.
  */
 
-public class FontTextView extends TextView {
+public class FontEditText extends EditText {
 
-	public FontTextView(Context context) {
+	public FontEditText(Context context) {
 		this(context, null);
 	}
 
-	public FontTextView(Context context, AttributeSet attrs) {
+	public FontEditText(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public FontTextView(Context context, AttributeSet attrs, int defStyle) {
+	public FontEditText(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-
-		if (isInEditMode()) {
-			return;
-		}
 
 		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.FontTextView);
 

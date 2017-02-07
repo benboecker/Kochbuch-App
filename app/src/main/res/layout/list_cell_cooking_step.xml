@@ -15,15 +15,16 @@
         android:layout_marginLeft="-5dp"
         android:layout_marginRight="10dp"
         custom:typefaceAsset="fonts/IndieFlower.ttf"
-        android:textStyle="bold"/>
+        />
 
     <de.benboecker.kochbuch.view.FontTextView
         android:id="@+id/step"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="25dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         custom:typefaceAsset="fonts/IndieFlower.ttf"
         android:lineSpacingExtra="-5dp"
-        android:textSize="20sp"/>
+        android:textSize="26sp"/>
 
 </LinearLayout>

@@ -36,8 +36,16 @@ public class IngredientTest {
 
 	@Test
 	public void newIngredientUniquePrimaryKey() {
+		Realm realm = Realm.getDefaultInstance();
+		realm.beginTransaction();
+
 		Ingredient ingredient = Ingredient.newIngredient();
+		realm.copyToRealmOrUpdate(ingredient);
+
 		Ingredient ingredientTwo = Ingredient.newIngredient();
+		realm.copyToRealmOrUpdate(ingredientTwo);
+
+		realm.commitTransaction();
 
 		/// Angelegt mit unterschiedlichen IDs
 		Assert.assertNotEquals(ingredient.getId(), ingredientTwo.getId());

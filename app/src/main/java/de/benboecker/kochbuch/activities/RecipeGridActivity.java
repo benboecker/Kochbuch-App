@@ -53,6 +53,8 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 		if (adapter == null) {
 			setupData();
 			setupInterface();
+		} else {
+			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -62,31 +64,6 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 		realm.close();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_ingedient_list, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-
-		switch (item.getItemId()) {
-			// Respond to the action bar's Up/Home button
-			case R.id.action_settings:
-				return true;
-			case android.R.id.home:
-				NavUtils.navigateUpFromSameTask(this);
-				return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -160,8 +137,8 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 	}
 
 	@Override
-	public List<String> getAutoCompleteList() {
-		return null;
+	public String getDefaultText(TextInputDialogFragment fragment) {
+		return "";
 	}
 
 
@@ -174,7 +151,7 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 		gridView = (GridView) this.findViewById(R.id.grid_view);
 		gridView.setOnItemClickListener(RecipeGridActivity.this);
 		gridView.setAdapter(adapter);
-		adapter.notifyDataSetChanged();
+		//adapter.notifyDataSetChanged();
 		gridView.invalidate();
 		registerForContextMenu(gridView);
 
@@ -183,8 +160,6 @@ public class RecipeGridActivity extends Activity implements AdapterView.OnItemCl
 
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(RecipeGridActivity.this);
-
-
 	}
 
 

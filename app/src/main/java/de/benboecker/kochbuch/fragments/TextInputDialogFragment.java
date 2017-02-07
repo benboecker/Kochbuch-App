@@ -33,7 +33,7 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 	public interface TextInputDialogListener {
 		void onTextInput(String text);
 		String getTextDialogTitle(TextInputDialogFragment fragment);
-		List<String> getAutoCompleteList();
+		String getDefaultText(TextInputDialogFragment fragment);
 	}
 
 	private TextInputDialogListener listener;
@@ -75,10 +75,7 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		dialog.setTitle(listener.getTextDialogTitle(this));
-
-		List<String> suggestions = listener.getAutoCompleteList();
-		ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, suggestions);
-		editText.setAdapter(adapter);
+		editText.setText(listener.getDefaultText(this));
 
 		return super.onCreateView(inflater, container, savedInstanceState);
 	}
@@ -100,7 +97,10 @@ public class TextInputDialogFragment extends DialogFragment implements TextWatch
 	@Override
 	public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 		boolean noText = editText.getText().toString().equals("");
-		dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(!noText);
+		Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+		if (button != null) {
+			button.setEnabled(!noText);
+		}
 	}
 
 	@Override

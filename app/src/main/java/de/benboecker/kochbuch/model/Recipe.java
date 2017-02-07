@@ -1,7 +1,12 @@
 package de.benboecker.kochbuch.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
+
+import java.io.File;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -18,7 +23,10 @@ public class Recipe extends RealmObject{
 	private String name = "";
 	private long time = 0;
 	private boolean isFavorite = false;
-	private int defaultNumberOfPersons = 0;
+	private boolean isVegetarian = false;
+	private boolean isVegan = false;
+
+	private int numberOfPersons = 0;
 	private String imageFileName = "";
 
 	RealmList<Ingredient> ingredients;
@@ -35,6 +43,51 @@ public class Recipe extends RealmObject{
 
 		return recipe;
 	}
+
+	public Bitmap getImage(Activity activity) {
+
+		Bitmap bitmap = null;
+
+		try {
+			File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+			File imageFile = new File(storageDir + imageFileName);
+			Uri uri = Uri.fromFile(imageFile);
+			bitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uri);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return bitmap;
+	}
+
+	public String getShareString() {
+		String ingredientList = name + "\n";
+
+		for (Ingredient ingredient : ingredients) {
+			ingredientList += "- " + ingredient.getName() + " (" + ingredient.getQuantity() + " " + ingredient.getUnit() + ")\n";
+		}
+
+		return ingredientList;
+	}
+
+	public void setNumberOfPersons(int numberOfPersons) {
+		if (this.numberOfPersons == 0) {
+			this.numberOfPersons = numberOfPersons;
+			return;
+		}
+
+		for (Ingredient ingredient : ingredients) {
+			float oldQuantity = ingredient.getQuantity();
+			float oldPersons = this.getNumberOfPersons();
+			float quotient = oldQuantity / oldPersons;
+			float newQuantity = quotient * numberOfPersons;
+			ingredient.setQuantity((long)newQuantity);
+		}
+
+		this.numberOfPersons = numberOfPersons;
+	}
+
 
 	public RealmList<CookingStep> getSteps() {
 		return steps;
@@ -72,11 +125,8 @@ public class Recipe extends RealmObject{
 	public void setFavorite(boolean favorite) {
 		isFavorite = favorite;
 	}
-	public int getDefaultNumberOfPersons() {
-		return defaultNumberOfPersons;
-	}
-	public void setDefaultNumberOfPersons(int defaultNumberOfPersons) {
-		this.defaultNumberOfPersons = defaultNumberOfPersons;
+	public int getNumberOfPersons() {
+		return numberOfPersons;
 	}
 	public RealmList<Ingredient> getIngredients() {
 		return ingredients;
@@ -84,13 +134,26 @@ public class Recipe extends RealmObject{
 	public void setIngredients(RealmList<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
-
 	public String getImageFileName() {
 		return imageFileName;
 	}
-
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
+	}
+
+	public boolean isVegetarian() {
+		return isVegetarian;
+	}
+
+	public void setVegetarian(boolean vegetarian) {
+		isVegetarian = vegetarian;
+	}
+
+	public boolean isVegan() {
+		return isVegan;
+	}
+
+	public void setVegan(boolean vegan) {
+		isVegan = vegan;
 	}
 }
